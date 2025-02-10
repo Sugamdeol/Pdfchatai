@@ -1,5 +1,5 @@
 const API_KEY = 'AIzaSyBgzNa5j-2z82aqegr40VaGhjQJKPfjZFM';
-const API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent';
+const API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-pro:generateContent';
 
 class GeminiAPI {
   constructor() {
