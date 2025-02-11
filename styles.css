@@ -85,13 +85,13 @@ body {
 }
 
 .pdf-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   padding: 0.75rem;
   border-radius: 0.5rem;
   cursor: pointer;
   margin-bottom: 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
 }
 
 .pdf-item:hover {
@@ -227,6 +227,41 @@ body {
   background-color: var(--hover-color);
 }
 
+.message.streaming {
+  position: relative;
+}
+
+.message.streaming::after {
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--primary-color);
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spinner 0.6s linear infinite;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .chat-input-container {
   padding: 1rem 2rem;
   border-top: 1px solid var(--border-color);
@@ -264,15 +299,199 @@ body {
   opacity: 0.9;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.metrics-container {
+  padding: 0.5rem 2rem;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--bg-color);
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  font-size: 0.875rem;
+}
+
+.metric-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.metric-label {
+  color: #64748b;
+  font-weight: 500;
+}
+
+.metric-value {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.delete-pdf-btn {
+  background: none;
+  border: none;
+  padding: 0.25rem;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  margin-left: auto;
+}
+
+.delete-pdf-btn:hover {
+  opacity: 1;
+}
+
+.pdf-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chat-list {
+  margin-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem;
+}
+
+.chat-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+}
+
+.chat-item-content {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 0.5rem;
+}
+
+.delete-chat-btn {
+  background: none;
+  border: none;
+  padding: 0.25rem;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-chat-btn:hover {
+  opacity: 1;
+  color: #ef4444;
+}
+
+.chat-list-item:hover {
+  background-color: var(--hover-color);
+}
+
+.chat-list-item.active {
+  background-color: var(--hover-color);
+}
+
+.pdf-preview-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100vh;
+  background: white;
+  border-left: 1px solid var(--border-color);
+  z-index: 1000;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.pdf-preview-container.active {
+  transform: translateX(0);
+}
+
+.pdf-preview-header {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pdf-preview-content {
+  position: relative;
+  padding: 1rem;
+  overflow: auto;
+}
+
+.pdf-preview-canvas {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.highlighted-text {
+  background-color: rgba(255, 255, 0, 0.3);
+  cursor: pointer;
+}
+
+.pdf-text-layer {
+  opacity: 0.2;
+  line-height: 1.0;
+}
+
+.pdf-text-layer span {
+  color: transparent;
+  position: absolute;
+  white-space: pre;
+  cursor: text;
+  transform-origin: 0% 0%;
+}
+
+.pdf-text-layer .highlighted-text {
+  background-color: rgba(255, 255, 0, 0.4);
+  opacity: 1;
+  color: transparent;
+  mix-blend-mode: multiply;
+}
+
+.pdf-zoom-controls {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+.pdf-zoom-controls button {
+  padding: 0.5rem;
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pdf-zoom-controls button:hover {
+  background: var(--hover-color);
+}
+
+.pdf-zoom-controls .zoom-fit {
+  width: auto;
+  padding: 0 0.75rem;
 }
 
 @media (max-width: 768px) {
@@ -319,7 +538,7 @@ body {
   }
 
   .chat-container {
-    padding-top: 4rem; /* Space for the toggle button */
+    padding-top: 4rem;
   }
 
   .chat-messages {
@@ -335,7 +554,7 @@ body {
   }
 
   #userInput {
-    font-size: 16px; /* Prevent auto-zoom on iOS */
+    font-size: 16px;
     padding: 0.5rem;
   }
 
@@ -343,7 +562,6 @@ body {
     padding: 0.5rem;
   }
 
-  /* Improve touch targets */
   .pdf-item, 
   .upload-btn,
   .new-chat-btn {
@@ -351,40 +569,46 @@ body {
     min-height: 44px;
   }
 
-  /* Fix scrolling issues */
   .chat-messages {
     -webkit-overflow-scrolling: touch;
   }
 
-  /* Prevent horizontal overflow */
   pre {
     max-width: 100%;
     overflow-x: auto;
   }
 
-  /* Adjust code blocks for mobile */
   .message.bot pre {
     margin: 0.5em -1rem;
     padding: 1rem;
     border-radius: 0;
   }
 
-  /* Better table handling on mobile */
   .message.bot table {
     display: block;
     overflow-x: auto;
     white-space: nowrap;
   }
+
+  .metrics-container {
+    padding: 0.5rem 1rem;
+  }
+  
+  .metrics {
+    gap: 1rem;
+  }
+
+  .pdf-preview-container {
+    width: 100%;
+  }
 }
 
-/* Add smooth transitions */
 .sidebar,
 .chat-container,
 .message {
   transition: all 0.3s ease;
 }
 
-/* Improve accessibility */
 @media (hover: none) {
   .pdf-item:hover,
   .upload-btn:hover,
@@ -399,7 +623,6 @@ body {
   }
 }
 
-/* High contrast mode support */
 @media (prefers-contrast: high) {
   :root {
     --primary-color: #0000ff;
